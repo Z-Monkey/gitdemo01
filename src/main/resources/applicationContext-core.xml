@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:aop="http://www.springframework.org/schema/context"
+
+xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+<bean id="userJDBCDao" class="com.gitdemo.dao.UserJDBCDao"></bean>
+<bean id="userHibernateDao" class="com.gitdemo.dao.UserHibernateDao"></bean>
+
+<!-- 构造注入 -->
+<bean id="userService1" class="com.gitdemo.service.UserServiceImpl">
+	<constructor-arg ref="userJDBCDao" />
+</bean>
+<!-- setter注入 -->
+<bean id="userService2" class="com.gitdemo.service.UserServiceImpl">
+	<property name="userDao" ref="userHibernateDao"></property>
+</bean>
+
+<bean id="user1" class="com.gitdemo.domain.User">
+	<!-- setter注入 -->
+	<property name="id" value="2019"/>
+	<property name="name" value="李四"/>
+	<property name="age" value="20"/>
+</bean>
+<bean id="user2" class="com.gitdemo.domain.User">
+	<!-- 构造注入 -->
+	<constructor-arg index="0" value="2019"/>
+	<constructor-arg index="1" value="王五"/>
+	<constructor-arg index="2" value="23"/>
+</bean>
+</beans>
